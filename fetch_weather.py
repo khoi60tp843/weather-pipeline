@@ -21,18 +21,18 @@ else:
 
 def get_weather(city):
     url = "https://api.openweathermap.org/data/2.5/weather"
-    params = {
-        "q": city,
-        "appid": api_key,
-        "units": "metric"   # trả về Celsius luôn, khỏi tự quy đổi từ Kelvin
-    }
-    response = requests.get(url, params=params)
+    params = {"q": city, "appid": api_key, "units": "metric"}
+
+    try:
+        response = requests.get(url, params=params, timeout=(3, 10))
+    except requests.exceptions.RequestException as e:
+        print(f"Network error for {city}: {e}")
+        return None
 
     if response.status_code == 200:
         return response.json()
-    else:
-        print(f"Error {response.status_code}: {response.text}")
-        return None
+    print(f"Error {response.status_code} for {city}: {response.text}")
+    return None
 
 if __name__ == "__main__":
     data = get_weather("Hanoi")
