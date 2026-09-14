@@ -2,9 +2,10 @@ from fastapi import FastAPI, Query
 from sqlalchemy import create_engine, text
 import os
 from dotenv import load_dotenv
+from urllib.parse import quote_plus
 
 load_dotenv()
-db_password = os.getenv("DB_PASSWORD")
+db_password = quote_plus(os.getenv("DB_PASSWORD"))
 
 app = FastAPI()
 engine = create_engine(f"postgresql://postgres:{db_password}@localhost:5432/weather_db")
