@@ -12,13 +12,6 @@ def is_valid(weather_data):
         return False
     return True
 
-data = get_weather("Hanoi")
-if data and is_valid(data):
-    # tiến hành insert vào Postgres
-    pass
-else:
-    print("Dữ liệu thiếu trường bắt buộc, bỏ qua dòng này")
-
 def get_weather(city):
     url = "https://api.openweathermap.org/data/2.5/weather"
     params = {
@@ -33,6 +26,13 @@ def get_weather(city):
     else:
         print(f"Error {response.status_code}: {response.text}")
         return None
+
+data = get_weather("Hanoi")
+if data and is_valid(data):
+    # tiến hành insert vào Postgres
+    pass
+else:
+    print("Dữ liệu thiếu trường bắt buộc, bỏ qua dòng này")
 
 if __name__ == "__main__":
     data = get_weather("Hanoi")
