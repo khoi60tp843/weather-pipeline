@@ -4,10 +4,11 @@ import pandas as pd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from datetime import datetime
+from urllib.parse import quote_plus 
 
 load_dotenv()
 api_key = os.getenv("OPENWEATHER_API_KEY")
-db_password = os.getenv("DB_PASSWORD")
+db_password = quote_plus(os.getenv("DB_PASSWORD"))   # encode here
 
 CITIES = ["Hanoi", "Ho Chi Minh City", "Da Nang"]
 
