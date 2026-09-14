@@ -14,7 +14,13 @@ CITIES = ["Hanoi", "Ho Chi Minh City", "Da Nang"]
 def get_weather(city):
     url = "https://api.openweathermap.org/data/2.5/weather"
     params = {"q": city, "appid": api_key, "units": "metric"}
-    response = requests.get(url, params=params)
+
+    try:
+        response = requests.get(url, params=params, timeout=(3, 10))
+    except requests.exceptions.RequestException as e:
+        print(f"Network error for {city}: {e}")
+        return None
+
     if response.status_code == 200:
         return response.json()
     print(f"Error {response.status_code} for {city}: {response.text}")
